@@ -124,10 +124,11 @@ async def handle_partner_branch(callback: types.CallbackQuery, session: AsyncSes
             )]
         ]
     )
-   if voice_id:
-       await callback.message.answer_voice(voice=voice_id, reply_markup=keyboard)
-       await callback.message.answer("Вся механика бизнеса — внутри.\n\nБез воды.\n\nТолько факты.\n\nВникай.")
-   else:
-       await callback.message.answer("Пару слов про бизнес можно посмотреть в нашем приложении.", reply_markup=keyboard)
-   await callback.answer()
+    
+    if voice_id:
+        await callback.message.answer_voice(voice=voice_id, reply_markup=keyboard)
+        await callback.message.answer("Вся механика бизнеса — внутри.\n\nБез воды.\n\nТолько факты.\n\nВникай.")
+    else:
+        await callback.message.answer("Пару слов про бизнес можно посмотреть в нашем приложении.", reply_markup=keyboard)
+    await callback.answer()
 
