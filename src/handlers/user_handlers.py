@@ -61,15 +61,18 @@ async def handle_start(message: types.Message, session: AsyncSession):
             [types.InlineKeyboardButton(text="💵 Хочу денег", callback_data="branch:partner")],
         ]
     )
+if start_video_id:
+    await message.answer_video_note(video_note=start_video_id)
+await message.answer("Нажмешь не туда.\n\nУвидишь не то.\n\nОпределись с целью 🥷", reply_markup=keyboard)
 
-    if start_video_id:
-        await message.answer_video_note(video_note=start_video_id)
-    await message.answer("Выбирай 👇", reply_markup=keyboard)
 
 
 @router.callback_query(lambda c: c.data == "branch:tourist")
 async def handle_tourist_branch(callback: types.CallbackQuery, session: AsyncSession):
     """Обработчик ветки 'Турист'."""
+    # Удаляем сообщение с кнопками
+    await callback.message.delete()
+    
     user_service = UserService(session)
     user = await user_service.get_user_by_telegram_id(str(callback.from_user.id))
     
@@ -89,17 +92,19 @@ async def handle_tourist_branch(callback: types.CallbackQuery, session: AsyncSes
         ]
     )
     
-    await callback.message.answer("Слушай сюда 🔊")
+    await callback.message.answer("Платформа по ссылке.\n\nНе верь мне на слово.\n\nВерь своим глазам.\n\nОткрывай. Сравнивай.")
     if voice_id:
         await callback.message.answer_voice(voice=voice_id, reply_markup=keyboard)
     else:
         await callback.message.answer("Всю суть нашего предложения можно посмотреть в приложении.", reply_markup=keyboard)
     await callback.answer() # Закрываем "часики" на кнопке
 
-
 @router.callback_query(lambda c: c.data == "branch:partner")
 async def handle_partner_branch(callback: types.CallbackQuery, session: AsyncSession):
     """Обработчик ветки 'Партнер'."""
+    # Удаляем сообщение с кнопками
+    await callback.message.delete()
+    
     user_service = UserService(session)
     user = await user_service.get_user_by_telegram_id(str(callback.from_user.id))
 
@@ -119,7 +124,7 @@ async def handle_partner_branch(callback: types.CallbackQuery, session: AsyncSes
         ]
     )
 
-    await callback.message.answer("Пару слов про бизнес 🔊")
+    await callback.message.answer("Вся механика бизнеса — внутри.\n\nБез воды.\n\nТолько факты.\n\nВникай.")
     if voice_id:
         await callback.message.answer_voice(voice=voice_id, reply_markup=keyboard)
     else:
