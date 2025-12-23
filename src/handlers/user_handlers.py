@@ -95,7 +95,8 @@ async def handle_tourist_branch(callback: types.CallbackQuery, session: AsyncSes
     if voice_id:
         await callback.message.answer_voice(voice=voice_id)
     await callback.message.answer("Платформа по ссылке.\n\nНе верь мне на слово.\n\nВерь своим глазам.\n\nОткрывай. Сравнивай.", reply_markup=keyboard)
-    await callback.answer() # Закрываем "часики" на кнопке
+    await callback.answer() # Close the "clock" on the button
+
 
 
 @router.callback_query(lambda c: c.data == "branch:partner")
@@ -127,4 +128,6 @@ async def handle_partner_branch(callback: types.CallbackQuery, session: AsyncSes
         await callback.message.answer_voice(voice=voice_id)
     await callback.message.answer("Вся механика бизнеса — внутри.\n\nБез воды.\n\nТолько факты.\n\nВникай.", reply_markup=keyboard)
     await callback.answer()
+
+
 
