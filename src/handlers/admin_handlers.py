@@ -146,9 +146,9 @@ async def request_start_video(callback: types.CallbackQuery, state: FSMContext, 
 _________________
 
 Пришлите новый видео-кружок для стартового сообщения.""", reply_markup=keyboard)
-     else:
-         await callback.message.edit_text("❌ У вас нет прав администратора для выполнения этой операции.")
-     await callback.answer()
+    else:
+        await callback.message.edit_text("❌ У вас нет прав администратора для выполнения этой операции.")
+    await callback.answer()
 
 @router.callback_query(lambda c: c.data == "admin:change_tourist_voice", AdminCallbackFilter())
 async def request_tourist_voice(callback: types.CallbackQuery, state: FSMContext, session: AsyncSession):
@@ -181,9 +181,9 @@ async def request_tourist_voice(callback: types.CallbackQuery, state: FSMContext
 _________________
 
 Пришлите новое голосовое сообщение для ветки 'Турист'.""", reply_markup=keyboard)
-     else:
-         await callback.message.edit_text("❌ У вас нет прав администратора для выполнения этой операции.")
-     await callback.answer()
+    else:
+        await callback.message.edit_text("❌ У вас нет прав администратора для выполнения этой операции.")
+    await callback.answer()
 
 @router.callback_query(lambda c: c.data == "admin:change_partner_voice", AdminCallbackFilter())
 async def request_partner_voice(callback: types.CallbackQuery, state: FSMContext, session: AsyncSession):
@@ -221,9 +221,9 @@ async def request_partner_voice(callback: types.CallbackQuery, state: FSMContext
 _________________
 
 Пришлите новое голосовое сообщение для ветки 'Партнер'.""", reply_markup=keyboard)
-     else:
-         await callback.message.edit_text("❌ У вас нет прав администратора для выполнения этой операции.")
-     await callback.answer()
+    else:
+        await callback.message.edit_text("❌ У вас нет прав администратора для выполнения этой операции.")
+    await callback.answer()
 
 # --- Обработчики для кнопок из основного админ-меню ---
 
