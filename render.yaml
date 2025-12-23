@@ -1,0 +1,21 @@
+services:
+- type: web
+  name: telegram-bot
+  env: docker
+  region: frankfurt  # Можно изменить на другой регион при необходимости
+  plan: free
+  envVars:
+  - key: TELEGRAM_BOT_TOKEN
+    sync: false  # Значение будет установлено вручную в панели Render
+  - key: DATABASE_URL
+    sync: false  # Значение будет установлено вручную в панели Render
+  - key: SUPABASE_URL
+    sync: false
+  - key: SUPABASE_KEY
+    sync: false
+  - key: SUPABASE_ANON_KEY
+    sync: false
+  - key: FAL_AI_API_KEY
+    sync: false
+  - key: OPEN_AI_API_KEY
+    sync: false
