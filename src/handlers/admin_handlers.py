@@ -125,10 +125,30 @@ async def request_start_video(callback: types.CallbackQuery, state: FSMContext, 
                 [types.InlineKeyboardButton(text="⬅️ Назад", callback_data="admin:settings")]
             ]
         )
-        await callback.message.answer("Пришлите новый видео-кружок для стартового сообщения.", reply_markup=keyboard)
-    else:
-        await callback.message.answer("❌ У вас нет прав администратора для выполнения этой операции.")
-    await callback.answer()
+        await callback.message.edit_text("""Вообщем.
+
+Я записал этого бота, чтобы не повторять одно и то же по кругу.
+
+Это просто эффективнее.
+
+Экономит время.
+
+Есть готовая система.
+
+Работает по всему миру.
+
+Она либо сохраняет твои деньги на поездках, либо создает капитал.
+
+Я не знаю, что тебе нужно.
+
+Тыкни кнопку, бот скинет инфу.
+
+_________________
+
+Пришлите новый видео-кружок для стартового сообщения.""", reply_markup=keyboard)
+     else:
+         await callback.message.edit_text("❌ У вас нет прав администратора для выполнения этой операции.")
+     await callback.answer()
 
 @router.callback_query(lambda c: c.data == "admin:change_tourist_voice", AdminCallbackFilter())
 async def request_tourist_voice(callback: types.CallbackQuery, state: FSMContext, session: AsyncSession):
@@ -142,10 +162,28 @@ async def request_tourist_voice(callback: types.CallbackQuery, state: FSMContext
                 [types.InlineKeyboardButton(text="⬅️ Назад", callback_data="admin:settings")]
             ]
         )
-        await callback.message.answer("Пришлите новое голосовое сообщение для ветки 'Турист'.", reply_markup=keyboard)
-    else:
-        await callback.message.answer("❌ У вас нет прав администратора для выполнения этой операции.")
-    await callback.answer()
+        await callback.message.edit_text("""Давай на пальцах.
+
+Один и тот же отель.
+Один и тот же номер
+Одна и та же кровать.
+
+На Букинге он стоит сотку.
+У нас — 60.
+
+Вопрос:
+
+Зачем дарить кому-то сорок процентов своих денег?
+
+Я не вижу смысла.
+
+
+_________________
+
+Пришлите новое голосовое сообщение для ветки 'Турист'.""", reply_markup=keyboard)
+     else:
+         await callback.message.edit_text("❌ У вас нет прав администратора для выполнения этой операции.")
+     await callback.answer()
 
 @router.callback_query(lambda c: c.data == "admin:change_partner_voice", AdminCallbackFilter())
 async def request_partner_voice(callback: types.CallbackQuery, state: FSMContext, session: AsyncSession):
@@ -159,10 +197,33 @@ async def request_partner_voice(callback: types.CallbackQuery, state: FSMContext
                 [types.InlineKeyboardButton(text="⬅️ Назад", callback_data="admin:settings")]
             ]
         )
-        await callback.message.answer("Пришлите новое голосовое сообщение для ветки 'Партнер'.", reply_markup=keyboard)
-    else:
-        await callback.message.answer("❌ У вас нет прав администратора для выполнения этой операции.")
-    await callback.answer()
+        await callback.message.edit_text("""Смотри.
+
+Рынок туризма — триллионы долларов.
+
+Сейчас эти деньги забирают агрегаторы.
+
+А я делаю на этом бизнес.
+
+Не надо ничего изобретать.
+
+Есть готовая модель.
+
+Есть продукт, который нужен всем.
+
+Есть лицензии и легальность.
+
+Суть простая:
+
+Переключаешь людей с розницы на опт имеешь с этого процент.
+
+
+_________________
+
+Пришлите новое голосовое сообщение для ветки 'Партнер'.""", reply_markup=keyboard)
+     else:
+         await callback.message.edit_text("❌ У вас нет прав администратора для выполнения этой операции.")
+     await callback.answer()
 
 # --- Обработчики для кнопок из основного админ-меню ---
 
@@ -189,7 +250,7 @@ async def handle_back_to_main(callback: types.CallbackQuery, session: AsyncSessi
         text, keyboard = await generate_admin_panel_keyboard_with_ref_link(session, callback, callback.from_user.id)
         await callback.message.edit_text(text, reply_markup=keyboard)
     else:
-        await callback.message.answer("❌ У вас нет прав администратора для выполнения этой операции.")
+        await callback.message.edit_text("❌ У вас нет прав администратора для выполнения этой операции.")
     await callback.answer()
 
 @router.callback_query(lambda c: c.data == "admin:get_ref_link", AdminCallbackFilter())
@@ -218,7 +279,7 @@ async def process_start_video(message: types.Message, state: FSMContext, session
         await content_service.update_content(user.id, "start_video", file_id)
         await state.clear()
         
-        # Отправляем сообщение об успешном обновлении с кнопкой "Назад"
+        # Отправляем уведомление об успешном обновлении и открываем меню настроек
         keyboard = types.InlineKeyboardMarkup(
             inline_keyboard=[
                 [types.InlineKeyboardButton(text="⬅️ Назад в настройки", callback_data="admin:settings")]
@@ -239,7 +300,7 @@ async def process_tourist_voice(message: types.Message, state: FSMContext, sessi
         await content_service.update_content(user.id, "tourist_voice", file_id)
         await state.clear()
         
-        # Отправляем сообщение об успешном обновлении с кнопкой "Назад"
+        # Отправляем уведомление об успешном обновлении и открываем меню настроек
         keyboard = types.InlineKeyboardMarkup(
             inline_keyboard=[
                 [types.InlineKeyboardButton(text="⬅️ Назад в настройки", callback_data="admin:settings")]
@@ -260,7 +321,7 @@ async def process_partner_voice(message: types.Message, state: FSMContext, sessi
         await content_service.update_content(user.id, "partner_voice", file_id)
         await state.clear()
         
-        # Отправляем сообщение об успешном обновлении с кнопкой "Назад"
+        # Отправляем уведомление об успешном обновлении и открываем меню настроек
         keyboard = types.InlineKeyboardMarkup(
             inline_keyboard=[
                 [types.InlineKeyboardButton(text="⬅️ Назад в настройки", callback_data="admin:settings")]
