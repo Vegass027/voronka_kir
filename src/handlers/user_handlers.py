@@ -93,8 +93,8 @@ async def handle_tourist_branch(callback: types.CallbackQuery, session: AsyncSes
         ]
     )
     if voice_id:
-        await callback.message.answer_voice(voice=voice_id, reply_markup=keyboard)
-        await callback.message.answer("Платформа по ссылке.\n\nНе верь мне на слово.\n\nВерь своим глазам.\n\nОткрывай. Сравнивай.")
+        await callback.message.answer_voice(voice=voice_id)
+    await callback.message.answer("Платформа по ссылке.\n\nНе верь мне на слово.\n\nВерь своим глазам.\n\nОткрывай. Сравнивай.", reply_markup=keyboard)
     else:
         await callback.message.answer("Всю суть нашего предложения можно посмотреть в приложении.", reply_markup=keyboard)
     await callback.answer() # Закрываем "часики" на кнопке
@@ -126,8 +126,8 @@ async def handle_partner_branch(callback: types.CallbackQuery, session: AsyncSes
     )
     
     if voice_id:
-        await callback.message.answer_voice(voice=voice_id, reply_markup=keyboard)
-        await callback.message.answer("Вся механика бизнеса — внутри.\n\nБез воды.\n\nТолько факты.\n\nВникай.")
+        await callback.message.answer_voice(voice=voice_id)
+    await callback.message.answer("Вся механика бизнеса — внутри.\n\nБез воды.\n\nТолько факты.\n\nВникай.", reply_markup=keyboard)
     else:
         await callback.message.answer("Пару слов про бизнес можно посмотреть в нашем приложении.", reply_markup=keyboard)
     await callback.answer()
