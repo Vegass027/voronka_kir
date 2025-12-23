@@ -61,9 +61,10 @@ async def handle_start(message: types.Message, session: AsyncSession):
             [types.InlineKeyboardButton(text="💵 Хочу денег", callback_data="branch:partner")],
         ]
     )
-if start_video_id:
-    await message.answer_video_note(video_note=start_video_id)
-await message.answer("Нажмешь не туда.\n\nУвидишь не то.\n\nОпределись с целью 🥷", reply_markup=keyboard)
+    
+    if start_video_id:
+        await message.answer_video_note(video_note=start_video_id)
+    await message.answer("Нажмешь не туда.\n\nУвидишь не то.\n\nОпределись с целью 🥷", reply_markup=keyboard)
 
 
 
